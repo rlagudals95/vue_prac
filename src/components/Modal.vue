@@ -1,12 +1,12 @@
 
 <template>
-  <div class="black-bg">
+  <!-- props로 받은 함수는 이렇게 써야한다 -->
+  <div class="black-bg" @click="$emit('closeModal')">
     <div class="white-bg">
       <h4>상세페이지</h4>
       <p>상세페이지 내용</p>
-      <!-- 전달받은 함수를 이런 형식으로 써준다 아래 props 타입설정 -->
-      <button @click="$emit('close')">닫기</button>
-      {{ info.title }}
+      <img :src="modalProps.image" />
+      <div>{{ modalProps }}</div>
     </div>
   </div>
 </template>
@@ -15,16 +15,13 @@
 export default {
   name: "modal",
   data() {
-    return {
-      title: void 0,
-      modal: true,
-    };
+    return {};
   },
   methods: {},
   props: {
+    modalProps: Object,
+    closeModal: Function,
     // props 타입을 설정안해줘도 오류는 안뜬다...
-    close: Function,
-    info: Object,
   },
 };
 </script>
@@ -44,7 +41,8 @@ div {
 
 .white-bg {
   margin: 0 auto;
-  width: 80%;
+  width: 90%;
+  height: 80%;
   background-color: white;
   border-radius: 8px;
   padding: 20px;

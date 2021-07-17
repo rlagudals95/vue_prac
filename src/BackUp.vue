@@ -7,15 +7,28 @@
     <!-- menus의 -->
     <a v-for="(menu, i) in menus" :key="i">{{ menu }}</a>
   </div>
-  <div class="post" v-for="(item, i) in datas" :key="i">
-    <oneRoom :info="datas[i]"> </oneRoom>
+  <div class="items" v-for="(item, i) in datas" :key="i">
+    <img class="image" :src="datas[i].image" @click="modalOpen = true" />
+    <h3>{{ datas[i].title }}</h3>
+    <p>{{ datas[i].price }}만원</p>
+    <p>{{ datas[i].content }}</p>
+    <modal
+      v-if="modalOpen"
+      @close="modalOpen = false"
+      :info="this.datas[i]"
+    ></modal>
+
+    <!-- 버튼에 코드 달아주기 매우 직관적이다..! -->
+    <!-- <button class="btn" @click="items[i].count++" @mouseover="test">
+      허위매물 신고
+    </button>
+    <span>신고수 : {{ items[i].count }}</span> -->
   </div>
 </template>
 
 <script>
 import oneRooms from "./data";
-
-import oneRoom from "./components/OneRoom.vue";
+import modal from "./components/Modal.vue";
 console.log("원룸데이터", oneRooms);
 
 export default {
@@ -63,7 +76,7 @@ export default {
     },
   },
 
-  components: { oneRoom },
+  components: { modal },
 };
 </script>
 
